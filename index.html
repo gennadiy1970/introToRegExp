@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>RegExp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54="
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <h2>Regular Expressions</h2>
+    </div>
+    <div class="wrapper">
+        <section>
+            <h4>RegExp или паттерн</h4>
+            <table>
+                <caption>
+                    Паттерн - это объект
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Литерал</th>
+                        <th>Конструктор</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>/</b><span class="comment">data</span><b>/</b></td>
+                        <td>new RegExp(<span class="comment">data</span>)</td>
+                    </tr>
+                    <tr>
+                        <td>лучшая производительность</td>
+                        <td>компилируется в RunTime</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+            <section>
+<!-- ========================= Pattern Modifiers =============================== -->
+
+            <h4>Pattern Modifiers / Флаги</h4>
+            <ul>
+                    <li>
+                        <p><b>g</b> : поиск всех совпадений (без флага - только первое совпадение)</p>
+                        <details> <pre> <code>
+("a b 3").match(/\w/)
+<span class="comment">a</span>                            
+
+("a b 3").match(/\w/g)
+<span class="comment">[a,b,3]</span>                            
+
+                        </code></pre></details> 
+                    </li>
+                    <li>
+                        <p><b>i</b> : поиск независимо от регистра </p>
+                            <details> <pre> <code>
+("a B c").match(/[a-z]/gi)
+<span class="comment">[a, B, c]</span>                                  
+
+("a B c").match(/[a-z]/g)
+<span class="comment">[a, c]</span>                                  
+</code></pre></details> 
+                    </li>
+                    <li>
+                        <p><b>m</b> : многострочный поиск</p>
+                            <details> <pre> <code>
+/^c/.test("a B\n" 
+             + "c D")                                
+<span class="comment">false</span>                 
+
+/^c/m.test("a B\n" 
+             + "c D")                                
+<span class="comment">true</span>                 
+                            </code></pre></details> 
+                    </li>
+                    <li>
+                        <p><b>y</b> : поиск начиная с символа, который находится на позиции свойства <b>lastindex</b> текущего регулярного выражения.</p>
+                            <details> <pre> <code>
+
+                            </code></pre></details> 
+                        </li>
+                        <li>
+                            <p><b>u</b> : использование юникода в паттерне</p>
+                                <details> <pre> <code>
+<span class="comment">A === \u{41}</span>                                     
+RegExp('\u{41}', 'u')
+    .test('abcdABCD')                                    
+<span class="comment">true</span> 
+                                </code></pre></details> 
+                        </li>
+ 
+                </ul>
+<!-- ========================= Pattern Modifiers =============================== -->                
+        </section>
+    </div>
+    <div class="wrapper">
+        <section>
+            <h4>Свойства pattern</h4>
+            <ul>
+                <li>
+                    <p><b>.flags</b> : строка из флагов паттерна</p>
+                        <details> <pre> <code>
+const pattern = 
+    new RegExp("a","ig");
+pattern.flags
+<span class="comment">gi</span>
+                        </code></pre></details> 
+                </li>
+                <li>
+                    <p><b>.global</b>, <b>.ignore</b>, <b>.multiline</b> : <i>true</i> при использовании флага ( или <i>false</i> в противном случае) </p></li>
+                <li>
+                    <p><b>.source </b> : возвращает строку c текстом шаблона без <i>//</i> и флагов</p>
+                </li>
+                <li><p><b>.sticky </b> : используется ли флаг <i>y</i></p></li>
+                <li><p><b>.unicode </b> : используется ли флаг <i>u</i></p></li>
+                <li>
+                    <p><b>lastIndex </b> : <i>write</i>/<i>read</i> свойство - индекс с которого следует начинать следующее сопоставление</p>
+                        <details> <pre> <code>
+let pattern = /a/g;
+  pattern.exec('ababab')
+  pattern.lastIndex;  
+  <span class="comment">1</span>  
+  pattern.exec('ababab')
+  pattern.lastIndex;  
+  <span class="comment">3</span>  
+  pattern.exec('ababab')
+  pattern.lastIndex;                              
+  <span class="comment">5</span>  
+                        </code></pre></details> 
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h4>Методы RegExp для паттерна</h4>
+            <ul>
+                <li>
+                    <!-- test -->
+                    <b>pattern.test(str)</b> - вернет <i>true</i> или <i>false</i>
+                    <details>
+                        <pre> <code>
+/mp/.test("exemple text")
+<span class="comment">true</span>                              
+
+RegExp("mp")
+    .test("exemple text")
+<span class="comment">true</span>
+
+(new RegExp("mpi"))
+    .test("exemple text")
+<span class="comment">false</span>                             
+                         </code></pre>
+                    </details>
+                </li>
+                <!-- exec -->
+                <li>
+                    <b>pattern.exec(str)</b> - вернет <i>null</i> или <i>массив</i>
+                    <details>
+                        <pre> <code>
+/(mp)/.test("exemple"
+    + "text exemple text")
+<span class="comment">["mp", "mp"]</span>                             
+
+/(mp)/.test("exemple"
+    + "text exemple text")
+<span class="comment">null</span>                              
+                        </code></pre>
+                    </details>
+                </li>
+            </ul>
+            <h4>Методы String для паттерна</h4>
+            <ul>
+                <li>
+                    <h4>search</h4>
+                    <!-- search -->
+                    <b>str.search(pattern)</b> - вернет <i>индекс</i> первого совпадения или <i>-1</i>
+                    <details>
+                        <pre> <code>
+"exemple text exemple"
+    .search(/mp/)
+<span class="comment">3</span>                             
+
+"exemple text exemple"
+    .search(/mpi/)
+<span class="comment">-1</span> 
+                          
+                         </code></pre>
+                    </details>
+                </li>
+                <!-- match -->
+                <li>
+                    <h4>match</h4>
+                    <b>str.match(pattern)</b> - вернет <i>null</i> или <i>массив</i>
+                    <details>
+                        <pre> <code>
+("exemple text exemple"
+ + "text").match(/(mp)/)
+<span class="comment">["mp", "mp"]</span>                             
+
+("exemple text exemple"
+ + "text").match(/(mpi)/)
+<span class="comment">null</span>                              
+                        </code></pre>
+                    </details>
+                </li>
+                <!-- replace -->
+                <li>
+                    <h4>replace</h4>
+                    <b>str.replace(pattern)</b> - вернет <i>строку</i> c заменой или без замены при отсутствии совпадений
+                    <details>
+                        <pre> <code>
+("exemple text exemple"
+ + " text").replace(
+     /(mp)g/,
+     "MP"
+    )
+<span class="comment">exeMPle text 
+    exeMPle text</span>                             
+
+("exemple text exemple"
+ + " text").replace(
+     /(mpi)g/, <span class="comment">mpi</span>
+     "MP"
+    )
+<span class="comment">exemple text 
+    exemple text</span>                               
+                        </code></pre>
+                    </details>
+                </li>
+                <li>
+                    &nbsp;&nbsp;- возможна <b>перестановка</b> вместо замены
+                    <details>
+                        <pre> <code>
+("кабан кабан")
+    .replace(
+        /(ка+)(бан+)/g, 
+        "$2$1"
+    )
+<span class="comment">банка банка</span>                             
+                              
+                        </code></pre>
+                    </details>
+                    &nbsp;&nbsp;- возможно <b>использование функции</b> для замены с преобразованием
+                    <details>
+                        <pre> <code>
+("fromCamelToCebabStyle")
+  .replace(
+    /([A-Z])/g,
+    (l) =&gt; "-" 
+      + l.toLowerCase()
+  )
+<span class="comment">from-camel-
+    to-cebab-style</span>                             
+                              
+                        </code></pre>
+                    </details>
+                </li>
+                <li>
+
+                </li>
+                <!-- split -->
+                <li>
+                    <h4>split</h4>
+                    <b>str.split(pattern)</b> - вернет <i>массив</i> с паттерном в качестве разделителя
+                    <details>
+                        <pre> <code>
+("from-cebab-to-array")
+  .split(/-/)
+<span class="comment">[from,cebab,
+    to,array]</span>                             
+                              
+                        </code></pre>
+                    </details>
+                </li>
+            </ul>
+        </section>
+    </div>
+        <div class="wrapper">
+        <section>
+            <h4>Базовый синтаксис</h4>
+            <ul>
+                <li><b>|</b> : Альтернатива ИЛИ</li>
+                <li><b>()</b> : Группа</li>
+                <details>
+                    <pre> <code>
+
+                    </code></pre>
+                </details>
+            </ul>
+            <h4>Special Characters / Спецсимволы</h4>
+            <ul>
+                <li><b>\n</b> : перевода строки</li>
+                <li><b>\r</b> : возврат каретки</li>
+                <li><b>\t</b> : tab</li>
+                <li><b>\v</b> : вертикальный tab</li>
+                <li><b>\f</b> : подача страницы</li>
+                <li><b>\uhhhh</b> : юникод hhhh
+                    <details> <pre> <code>
+let pattern = /\u0041/u;
+  pattern.test('aAb')
+<span class="comment">true</span>                        
+                    </code></pre></details> 
+                </li>
+                <li><b>\xhh</b> : 16-ричное число <i>hh</i> 
+                        <details> <pre> <code>
+let pattern = /\x8/;
+  pattern.test('aA0x8b')                            
+                        </code></pre></details> 
+                </li>
+            </ul>
+            <h4>Работа со спецсимволами</h4>
+            <ul>
+                <li><b>\</b> : экранирование спецсимволов - <i>\n</i> перевод строки</li>
+                <li><b>\</b> : деэкранирование спецсимволов - <i>\\</i> просто символ <i>\,  <i>\*</i> - символ <i>*</i> </i>
+                </li>
+                <!-- <li><b>\Q</b> : начало последовательности литералов</li>
+                <li><b>\E</b> : конец последовательности литералов</li> -->
+            </ul>
+            <h4>Position Matching / Соответствие позиции</h4>
+            <ul>
+                <li><b>^</b> :  начало сопоставления </li>
+                <li><b>$</b> :  конец сопоставления</li>
+                <li><b>\b</b> : граница <b>слова</b> нулевой ширины (между буквой и пробелом)
+                    <details> <pre> <code>
+let pattern = /\bamp/;
+pattern
+ .exec('test example') 
+<span class="comment">null</span> 
+pattern
+ .exec('test ex ample') 
+<span class="comment">amp</span> 
+
+let template = /amp\b/;
+template
+ .exec('test example') 
+<span class="comment">null</span> 
+template
+ .exec('test examp le')
+<span class="comment">amp</span> 
+                    </code></pre></details> 
+                </li>
+                <li><b>\B</b> : граница <b>не слова</b> нулевой ширины (между буквой и пробелом)</li>
+<details> <pre> <code>
+let pattern = /\Bamp/;
+pattern
+ .exec('test example') 
+<span class="comment">amp</span> 
+pattern
+ .exec('test ex ample') 
+<span class="comment">null</span> 
+
+let template = /amp\B/;
+template
+ .exec('test example') 
+<span class="comment">amp</span> 
+template
+ .exec('test examp le')
+<span class="comment">null</span> 
+                    </code></pre></details>
+            </ul>
+            <h4>Character Classes / Символы множества</h4>
+            <ul>
+                <li><b>\s</b> : Пробельный символ
+                    <details> 
+                            [ \f\n\r\t\v​\u00a0\u1680​\u180e\u2000​\u2001\u2002​\u2003\u2004​\u2005\u2006​\u2007\u2008​\u2009\u200a​\u2028\u2029​​\u202f\u205f​\u3000]                        
+                    </details> 
+                </li>
+                <li><b>\S</b> : Не пробельный символ</li>
+                <li><b>\w</b> : Слово или [_a-zA-Z0-9] </li>
+                <li><b>\W</b> : Не слово</li>
+                <li><b>\d</b> : Цифра</li>
+                <li><b>\D</b> : Не цифра</li>
+            </ul>
+
+            <h4>Groups and Ranges / Группы и диапазоны</h4>
+            <ul>
+                <li><b>.</b> : любой символ, кроме новой строки (\n)</li>
+                <li><b>(a)</b> : соответствует символу a и запоминает это соответствие (захватывающие скобки)</li>
+                <li><b>(a|b)</b> : a или b</li>
+                <li><b>(abc)</b> : группа из идущих подряд символов, например abc</li>
+                <li><b>(?:a)</b> : отключение захвата символа a</li>
+                <li><b>[abc]</b> : Один из символов a, b или c. Спецсимволы . и * не работают внутри []</li>
+                <li><b>[^abc]</b> : Не a, b или c</li>
+                <li><b>[a-z]</b> : Буквы латиницы диапазона a-z</li>
+                <li><b>[A-Z]</b> : Заглавные буквы латиницы диапазона a-z</li>
+                <li><b>[0-9]</b> : Цифры диапазона 0-9</li>
+            </ul>
+            
+           
+        </section>
+        <section>
+                
+                            <h4>String Replacement / Замена строк</h4>
+                            <ul>
+                                <li><b>$$</b> : вставляет $</li>
+                                <li><b>$&</b> : вставляет сопоставившуюся подстроку</li>
+                                <li><b>$1</b> : 1-е сопоставление</li>
+                                <li><b>$2</b> : 2-е сопоставление</li>
+                                <li><b>$n</b> : n-е сопоставление</li>
+                                <li><b>$`</b> : вставляет часть строки, предшествующую сопоставившейся подстроке</li>
+                                <li><b>$'</b> : вставляет часть строки, следующую за сопоставившейся подстрокой</li>
+                                <li><b>$+</b> : удаляет совпадение</li>
+                                <li>Пример     <details> <pre> <code>
+const pattern = /abc/gi
+const str = "xyz abc mnk"
+
+const before 
+    = str.replace(pattern,"$`")
+<span class="comment">xyz xyz  mnk</span>    
+
+const after 
+    = str.replace(pattern,"$'")
+<span class="comment">xyz  mnk mnk</span>    
+
+const del 
+    =  str.replace(pattern,"$+")                                    
+<span class="comment">xyz  mnk</span>    
+</code></pre></details> </li>
+                            </ul>
+                            <h4>Assertions /  упреждающие утверждения</h4>
+                            <ul>
+                                <li><b>a(?=)b</b> : упреждение или a только тогда, когда за a следует b, но b не входи в результат</li>
+                                <li><b>x(?!y)</b> : отрицательное упреждение или a только тогда, когда за a не следует b
+                                    <details> <pre> <code>
+                /\d+(?!\.)/.exec("3.124")
+                <span class="comment">124</span>                        
+                                    </code></pre></details> 
+                                </li>
+                                <!-- <li><b>?&lt;=</b> :</li>
+                                <li><b>?!=</b>, <b>?&lt;!</b> :</li>
+                                <li><b>?&gt;</b> :</li>
+                                <li><b>?()</b> : если, то</li>
+                                <li><b>?()|</b> : если, то иначе</li>
+                                <li><b>?#</b> : комментарий</li> -->
+                            </ul>
+                            <h4>Quantifiers / Квантификаторы</h4>
+                            <ul>
+                                <li><b>x*</b> : x встречается 0 и более</li>
+                                <li><b>x+</b> : x встречается 1 и более</li>
+                                <li><b>x?</b>, <b>{0,1}</b> : x встречается 0 или 1 раз</li>
+                                <li><b>x{3}</b> : ровно 3 вхождения символа x</li>
+                                <li><b>{3,}</b> : 3 и более</li>
+                                <li><b>{3,5}</b> : 3, 4 или 5</li>
+                                <li><b>*?</b>, <b>+?</b>, <b>??</b>, <b>{...}?</b> : отключение "жадности", включение "ленивого" поиска</li>
+                                <li><b>"ленивый"</b> поиск - минимально возможное сопоставление</li>
+                                <li><b>"жадный"</b> поиск - максимально возможное сопоставление</li>
+                            </ul>
+        </section>
+    </div>
+    <div class="wrapper">
+        <section>
+            <h4>npm </h4>
+            <p><a href="https://www.npmjs.com/package/url-regex">Regular expression for matching URLs</a></p>
+            <p><a href="https://github.com/VerbalExpressions/JSVerbalExpressions">JavaScript Regular Expressions made easy</a> библиотека </p>
+            <p><a href="https://medium.freecodecamp.org/pregx-for-those-who-wish-to-dodge-regex-250e4a484ee0">PregX</a> набор стандартных регулярных выражений для USA</p>
+            <p><a href="http://2ality.com/2017/07/re-template-tag.html">Composing regular expressions</a>
+                    <details> 
+                        <ul>
+                            <li>
+                                Вы можете составлять регулярные выражения из фрагментов и документировать фрагменты с помощью комментариев. Это облегчает понимание регулярных выражений.
+                            </li>
+                            <li>
+                                Вы можете определить константы для фрагментов регулярных выражений и повторно использовать их.
+                            </li>
+                            <li>
+                                Вы можете определять простые текстовые константы через строки и вставлять их в регулярные выражения, и при необходимости они экранируются.
+                            </li>
+                        </ul>
+                    </details> 
+            </p>
+            <p><a href="https://libraries.io/search?keywords=regular-expression&platforms=NPM">Выборка в <b>libraries.io</b> по <i>npm</i> библиотек RegExp </a></p>
+        </section>
+        <section>
+            <h4>Атаки ReDoS</h4>
+            <p><a href="https://medium.com/node-security/minimatch-redos-vulnerability-590da24e6d3c">Библиотека, предотвращающая атаки ReDoS</a></p>
+
+        </section>
+    </div>
+</body>
+
+</html>
