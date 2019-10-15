@@ -132,10 +132,13 @@ a:hover {
   color: red;
 }
 
-.img-wrp {
+.img-wrp,
+.box-shadow {
   box-shadow: 2px 2px 2px 2px hsla(0, 0%, 0%, 0.2);
 }
-
+.box-shadow {
+  padding: 1rem;
+}
 .img-wrp img {
   display: block;
   width: 100%;

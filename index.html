@@ -51,7 +51,7 @@
 
         <h4>Pattern Modifiers / Флаги</h4>
         <ul>
-          <li>
+          <li class="box-shadow">
             <p>
               <b>g</b> : поиск всех совпадений (без флага - только первое
               совпадение)
@@ -59,15 +59,15 @@
             <details>
               <pre> <code>
 ("a b 3").match(/\w/)
-<span class="comment">a</span>                            
+<span class="comment">a</span>
 
 ("a b 3").match(/\w/g)
-<span class="comment">[a,b,3]</span>                            
+<span class="comment">[a,b,3]</span>
 
                         </code></pre>
             </details>
           </li>
-          <li>
+          <li class="box-shadow">
             <p><b>i</b> : поиск независимо от регистра</p>
             <details>
               <pre> <code>
@@ -79,7 +79,7 @@
 </code></pre>
             </details>
           </li>
-          <li>
+          <li class="box-shadow">
             <p><b>m</b> : многострочный поиск</p>
             <details>
               <pre> <code>
@@ -93,7 +93,7 @@
                             </code></pre>
             </details>
           </li>
-          <li>
+          <li class="box-shadow" hidden="true">
             <p>
               <b>y</b> : поиск начиная с символа, который находится на позиции
               свойства <b>lastindex</b> текущего регулярного выражения.
@@ -104,7 +104,7 @@
                             </code></pre>
             </details>
           </li>
-          <li>
+          <li class="box-shadow">
             <p><b>u</b> : использование юникода в паттерне</p>
             <details>
               <pre> <code>
@@ -125,7 +125,7 @@ RegExp('\u{41}', 'u')
       <section>
         <h4>Свойства pattern</h4>
         <ul>
-          <li>
+          <li class="box-shadow">
             <p><b>.flags</b> : строка из флагов паттерна</p>
             <details>
               <pre> <code>
@@ -136,26 +136,26 @@ pattern.flags
                         </code></pre>
             </details>
           </li>
-          <li>
+          <li class="box-shadow">
             <p>
               <b>.global</b>, <b>.ignore</b>, <b>.multiline</b> :
               <i>true</i> при использовании флага ( или <i>false</i> в противном
               случае)
             </p>
           </li>
-          <li>
+          <li class="box-shadow">
             <p>
               <b>.source </b> : возвращает строку c текстом шаблона без
               <i>//</i> и флагов
             </p>
           </li>
-          <li>
+          <li class="box-shadow">
             <p><b>.sticky </b> : используется ли флаг <i>y</i></p>
           </li>
-          <li>
+          <li class="box-shadow">
             <p><b>.unicode </b> : используется ли флаг <i>u</i></p>
           </li>
-          <li>
+          <li class="box-shadow">
             <p>
               <b>lastIndex </b> : <i>write</i>/<i>read</i> свойство - индекс с
               которого следует начинать следующее сопоставление
@@ -164,14 +164,14 @@ pattern.flags
               <pre> <code>
 let pattern = /a/g;
   pattern.exec('ababab')
-  pattern.lastIndex;  
-  <span class="comment">1</span>  
+  pattern.lastIndex;
+  <span class="comment">1</span>
   pattern.exec('ababab')
-  pattern.lastIndex;  
-  <span class="comment">3</span>  
+  pattern.lastIndex;
+  <span class="comment">3</span>
   pattern.exec('ababab')
-  pattern.lastIndex;                              
-  <span class="comment">5</span>  
+  pattern.lastIndex;
+  <span class="comment">5</span>
                         </code></pre>
             </details>
           </li>
@@ -180,13 +180,13 @@ let pattern = /a/g;
       <section>
         <h4>Методы RegExp для паттерна</h4>
         <ul>
-          <li>
+          <li class="box-shadow">
             <!-- test -->
             <b>pattern.test(str)</b> - вернет <i>true</i> или <i>false</i>
             <details>
               <pre> <code>
 /mp/.test("exemple text")
-<span class="comment">true</span>                              
+<span class="comment">true</span>
 
 RegExp("mp")
     .test("exemple text")
@@ -199,24 +199,24 @@ RegExp("mp")
             </details>
           </li>
           <!-- exec -->
-          <li>
+          <li class="box-shadow">
             <b>pattern.exec(str)</b> - вернет <i>null</i> или <i>массив</i>
             <details>
               <pre> <code>
-/(mp)/.test("exemple"
+/(mp)/.exec("exemple"
     + "text exemple text")
-<span class="comment">["mp", "mp"]</span>                             
+<span class="comment">["mp", "mp"]</span>
 
-/(mp)/.test("exemple"
+/(ab)/.exec("exemple"
     + "text exemple text")
-<span class="comment">null</span>                              
+<span class="comment">null</span>
                         </code></pre>
             </details>
           </li>
         </ul>
         <h4>Методы String для паттерна</h4>
         <ul>
-          <li>
+          <li class="box-shadow">
             <h4>search</h4>
             <!-- search -->
             <b>str.search(pattern)</b> - вернет <i>индекс</i> первого совпадения
@@ -235,7 +235,7 @@ RegExp("mp")
             </details>
           </li>
           <!-- match -->
-          <li>
+          <li class="box-shadow">
             <h4>match</h4>
             <b>str.match(pattern)</b> - вернет <i>null</i> или <i>массив</i>
             <details>
@@ -251,7 +251,7 @@ RegExp("mp")
             </details>
           </li>
           <!-- replace -->
-          <li>
+          <li class="box-shadow">
             <h4>replace</h4>
             <b>str.replace(pattern)</b> - вернет <i>строку</i> c заменой или без
             замены при отсутствии совпадений
@@ -275,7 +275,7 @@ RegExp("mp")
                         </code></pre>
             </details>
           </li>
-          <li>
+          <li class="box-shadow">
             &nbsp;&nbsp;- возможна <b>перестановка</b> вместо замены
             <details>
               <pre> <code>
@@ -303,9 +303,8 @@ RegExp("mp")
                         </code></pre>
             </details>
           </li>
-          <li></li>
           <!-- split -->
-          <li>
+          <li class="box-shadow">
             <h4>split</h4>
             <b>str.split(pattern)</b> - вернет <i>массив</i> с паттерном в
             качестве разделителя
@@ -348,7 +347,7 @@ let pattern = /\u0041/u;
   pattern.test('aAb')
 <span class="comment">true</span>
                     </code></pre>
-                </details>
+            </details>
           </li>
           <li>
             <b>\xhh</b> : 16-ричное число <i>hh</i>
@@ -406,8 +405,8 @@ template
             пробелом)
           </li>
           <li>
-          <details>
-            <pre> <code>
+            <details>
+              <pre> <code>
 let pattern = /\Bamp/;
 pattern
  .exec('test example') 
@@ -424,7 +423,7 @@ template
  .exec('test examp le')
 <span class="comment">null</span> 
                     </code></pre>
-          </details>
+            </details>
           </li>
         </ul>
         <h4>Character Classes / Символы множества</h4>
@@ -489,15 +488,14 @@ const str = "xyz abc mnk"
 
 const before 
     = str.replace(pattern,"$`")
-<span class="comment">xyz xyz  mnk</span>    
+<span class="comment">xyz xyz  mnk</span>
 
 const after 
     = str.replace(pattern,"$'")
-<span class="comment">xyz  mnk mnk</span>    
-
+<span class="comment">xyz  mnk mnk</span>
 const del 
-    =  str.replace(pattern,"$+")                                    
-<span class="comment">xyz  mnk</span>    
+    =  str.replace(pattern,"$+")
+<span class="comment">xyz  mnk</span>
 </code></pre>
             </details>
           </li>
@@ -514,7 +512,7 @@ const del
             <details>
               <pre> <code>
                 /\d+(?!\.)/.exec("3.124")
-                <span class="comment">124</span>                        
+                <span class="comment">124</span>
                                     </code></pre>
             </details>
           </li>
